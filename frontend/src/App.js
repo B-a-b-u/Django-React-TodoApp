@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Todo/>} />
-        <Route path="/view" element={<ViewTodo/>} />
+        {/* <Route path="/view" element={<ViewTodo/>} /> */}
       </Routes>
       </BrowserRouter>
     </div>

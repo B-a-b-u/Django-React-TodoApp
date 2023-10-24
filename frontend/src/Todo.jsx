@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import "./Todo.css"
 import ViewTodo from './ViewTodo';
-import { Link } from 'react-router-dom';
 function Todo() {
 
     const [event,setEvent] = useState("");
     const [detail,setDetail] = useState("");
     const [completed,setCompleted] = useState(false);
-    const [data,setData] = useState({});
+    const [data,setData] = useState(null);
     const [isSubmit,setIsSubmit] = useState(false);
 
     
@@ -15,11 +14,12 @@ function Todo() {
     // Function to handle submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        setData({...data, ["event"]:event, ["detail"]: detail, ["completed"]:completed});
-        setIsSubmit(!isSubmit);
-        // console.log("Todo Event : ",todoEvent);
+        const todoEvent = {event, detail, completed}
+        setData({...data, todoEvent});
+        setIsSubmit(true);
+        console.log("Todo Event : ",todoEvent);
     }
-  return (
+return (
     <>
     
     <div className='todo-form'>
@@ -38,8 +38,15 @@ function Todo() {
 
         <button onClick={handleSubmit} >Create</button>
         
+        {
+  isSubmit && data ? (
+    <ViewTodo data={data} />
+  ) : (
+    isSubmit && <ViewTodo />
+  )
+}
+
         
-        <ViewTodo data = {data}/>
         
     </div>
     </>

@@ -1,7 +1,6 @@
-import React from 'react'
 
-function ViewTodo({data}) {
-    console.log("Viiew Data",data);
+function ViewTodo ({data})  {
+  console.log("View Data : ",data);
   return (
     <div>ViewTodo</div>
   )
