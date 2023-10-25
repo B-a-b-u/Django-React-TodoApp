@@ -1,56 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios";
 
-const todoItems = [
-  {
-    id: 1,
-    title: "Go to Market",
-    description: "Buy ingredients to prepare dinner",
-    completed: true,
-  },
-  {
-    id: 2,
-    title: "Study",
-    description: "Read Algebra and History textbook for the upcoming test",
-    completed: false,
-  },
-  {
-    id: 3,
-    title: "Sammy's books",
-    description: "Go to the library to return Sammy's books",
-    completed: true,
-  },
-  {
-    id: 4,
-    title: "Article",
-    description: "Write an article on how to use Django with React",
-    completed: false,
-  },
-];
-function ViewTodo ({data})  {
+function ViewTodo ()  {
 
   // Navbar tabs
   const [viewCompleted, setViewCompleted] = useState(false);
+  const [todoList, setTodoList] = useState(null);
+
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+  const fetchList = () => {
+    axios
+    .get("http://localhost:8000/api/todo/")
+    .then((res) => {setTodoList(res.data)
+    console.log("RES DATA :",res.data)})
+    .catch((err) => console.log("Data Fetcing Error : ",err))
+  }
+
 
   // Checking Data
-  console.log("View Data : ",data);
+  // console.log("View Data : ",data);
 
   // Change navbartabs
   const displayCompleted = (status) => {
     setViewCompleted(status);
   };
 
+  const handleEdit = (item) => {
+    console.log("Edit id : ",item.id)
+    console.log("Edit event : ",item.event)
+
+    console.log("Edit description : ",item.detail)
+
+  }
+
   // Filtering the items
   const renderItems = () =>{
-    if(data != null){
-      const res = data.filter((item) => item.completed === viewCompleted);
+    if(todoList != null){
+      const res = todoList.filter((item) => item.completed === viewCompleted);
     console.log("res : ",res);
 
     return res.map((item) => (
       <li className="list-group-item d-flex justify-content-between align-items-center" key={item.id}>
         <span title={item.detail}>{item.event}</span>
         <span>
-        <button className="btn btn-warning mr-2">Edit</button>
+        <button className="btn btn-warning mr-2" onClick={handleEdit(item)}>Edit</button>
         <button className="btn btn-danger mr-2">Delete</button>
         </span>
       </li>
