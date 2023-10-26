@@ -10,6 +10,8 @@
   const [detail,setDetail] = useState("");  // Input Field
   const [completed,setCompleted] = useState(false); // Input Field
   const [todoList, setTodoList] = useState(null); // To store List of data from API
+
+  const [submitbutton, setSubmitButton] = useState("Submit")
   const [toedit, setToEdit] = useState(false);  // Toggle type for deciding
   const [editdata, setEditData] = useState(null); // To store editing data
   const [viewCompleted, setViewCompleted] = useState(false);  // Toggle type for deciding in navbars
@@ -41,6 +43,8 @@
       setEvent(item.event)
       setDetail(item.detail)
       setCompleted(item.completed)
+
+      setSubmitButton("Update Task")
 
       // To pass data to Submitting form
       setEditData(item);
@@ -144,13 +148,13 @@
         <div className="container" style ={ {"border" : "2px solid black"}}>
           <div className='todo-form'>
               
-              <input required class="input-group input-group-lg p-2 mt-4" type='text' value={event} name='event' placeholder='Event' onChange={ (e) => {
+              <input required className="input-group input-group-lg p-2 mt-4" type='text' value={event} name='event' placeholder='Event' onChange={ (e) => {
                   let temp = e.target.value;
                   setEvent(temp);
               }}/>
               <br/><br/>
 
-              <input required class="input-group input-group-lg p-2" type='text' value={detail} name='detail' placeholder='Description'  onChange={ (e) => {
+              <input required className="input-group input-group-lg p-2" type='text' value={detail} name='detail' placeholder='Description'  onChange={ (e) => {
                   let temp = e.target.value;
                   setDetail(temp);
               }}/>
@@ -161,7 +165,7 @@
                 <label className ="form-check-label">Completed</label>
               </div>
 
-              <button class="btn btn-success mb-5" onClick={() => handleSubmit()} >Create Task</button>
+              <button className="btn btn-success mb-5" onClick={() => handleSubmit()} >{submitbutton}</button>
           </div>
           </div>
         <h1>View Todo</h1>
