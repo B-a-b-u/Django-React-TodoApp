@@ -44,6 +44,7 @@
       setDetail(item.detail)
       setCompleted(item.completed)
 
+      // Updating Submit button
       setSubmitButton("Update Task")
 
       // To pass data to Submitting form
@@ -104,7 +105,9 @@
         setCompleted(false);
         setEvent("");
         setDetail("");
+        setSubmitButton("Submit")
       window.location.reload();
+
 
         return;
       }
