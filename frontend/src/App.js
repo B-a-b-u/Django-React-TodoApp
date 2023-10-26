@@ -1,6 +1,5 @@
 import Todo from "./Todo";
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import ViewTodo from "./ViewTodo";
 function App() {
   return (
 
