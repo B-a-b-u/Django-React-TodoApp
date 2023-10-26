@@ -39,6 +39,7 @@
   // Editing the existing items
   const handleEdit = (item) => {
     if(item){
+
       // To make the data available on editing field
       setEvent(item.event)
       setDetail(item.detail)
@@ -77,12 +78,18 @@
 
       return res.map((item) => (
         <li className="list-group-item d-flex justify-content-between align-items-center" key={item.id}>
-          <span title={item.detail}>{item.event}</span>
+          <div className='d-flex align-items-center' style={{ width: "100%" }}>
+          
+            <span style={{ flex: 1 }}>{item.event}</span>
+            <span style={{ flex: 2 }}>{item.detail}</span>
+
           <span>
-          <button className="btn btn-warning mr-2" onClick={() => handleEdit(item)}>Edit</button>
-          <button className="btn btn-danger mr-2" onClick={ () => handleDelete(item)}>Delete</button>
+          <button className="btn btn-warning ml-4" onClick={() => handleEdit(item)}>Edit</button>
+          <button className="btn btn-danger ml-2" onClick={ () => handleDelete(item)}>Delete</button>
           </span>
+          </div>
         </li>
+        
       ))
     }
   }
@@ -99,14 +106,14 @@
         setToEdit(!toedit);
         axios
         .put(`http://localhost:8000/api/todo/${editdata.id}/`, todoEvent)
-        .then((res) => console.log("Edit successful",res))
-        .catch((err) => console.log("Error on PUT : ",err))
+        .then((res) => console.log("Edit successful : ",res))
+        .catch((err) => console.log("PUT Error : ",err))
         alert("Updated...");
         setCompleted(false);
         setEvent("");
         setDetail("");
         setSubmitButton("Submit")
-      window.location.reload();
+        window.location.reload();
 
 
         return;
@@ -131,10 +138,10 @@
           .post("http://localhost:8000/api/todo/",todoEvent)
           .then(() => fetchList())
           .catch((err) => console.log("Post Error  :",err));
-          alert("Event Created...");
+          alert("Event Created...")
         }
         else{
-          alert("Fields cannot be empty")
+          alert("Fields cannot be empty!!!")
         }
         }
        
